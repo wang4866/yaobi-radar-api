@@ -1,0 +1,242 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "\u5996\u5e01\u96f7\u8fbe API",
+    "description": "\ud83d\udc09 Binance \u5168\u5e02\u573a\u5996\u5e01\u626b\u63cf\u4e0e\u8bc4\u5206\u7cfb\u7edf\n\n\u81ea\u52a8\u626b\u63cf\u6240\u6709 USDT \u6c38\u7eed\u5408\u7ea6\uff0c9 \u7ef4\u5ea6\u5996\u529b\u8bc4\u5206\uff0c\u53d1\u73b0\u6f5c\u5728\u6ce2\u52a8\u5e01\u79cd\u3002\n\n\u6570\u636e\u6765\u6e90: Binance FAPI (\u516c\u5f00 API\uff0c\u65e0\u9700 API Key)",
+    "version": "2.0.0",
+    "x-rapidapi": {
+      "category": "Cryptocurrency",
+      "pricing": [
+        {
+          "name": "Free",
+          "requests": 50,
+          "period": "daily",
+          "price": 0
+        },
+        {
+          "name": "Basic",
+          "requests": 500,
+          "period": "monthly",
+          "price": 9.99
+        },
+        {
+          "name": "Pro",
+          "requests": 10000,
+          "period": "monthly",
+          "price": 29.99
+        }
+      ]
+    }
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Root",
+        "description": "API \u6839\u8def\u5f84",
+        "operationId": "root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "Health",
+        "description": "\u5065\u5eb7\u68c0\u67e5",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scan": {
+      "get": {
+        "summary": "Get Scan",
+        "description": "\u83b7\u53d6\u6700\u65b0\u5996\u5e01\u626b\u63cf\u7ed3\u679c\n\n\u8fd4\u56de\u7f13\u5b58\u7684\u626b\u63cf\u7ed3\u679c\u3002\u9996\u6b21\u8bf7\u6c42\u4f1a\u89e6\u53d1\u4e00\u6b21\u5168\u5e02\u573a\u626b\u63cf\uff08\u7ea6 10-20 \u79d2\uff09\u3002\n\u540e\u7eed\u8bf7\u6c42\u79d2\u56de\uff0c\u7f13\u5b58\u6bcf 5 \u5206\u949f\u81ea\u52a8\u8fc7\u671f\u5e76\u91cd\u65b0\u626b\u63cf\u3002",
+        "operationId": "get_scan_scan_get",
+        "parameters": [
+          {
+            "name": "top",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 100,
+              "minimum": 1,
+              "description": "\u8fd4\u56de\u524d N \u4e2a\u5996\u5e01",
+              "default": 20,
+              "title": "Top"
+            },
+            "description": "\u8fd4\u56de\u524d N \u4e2a\u5996\u5e01"
+          },
+          {
+            "name": "min_score",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 20,
+              "minimum": 0,
+              "description": "\u6700\u4f4e\u8bc4\u5206\u8fc7\u6ee4",
+              "default": 3,
+              "title": "Min Score"
+            },
+            "description": "\u6700\u4f4e\u8bc4\u5206\u8fc7\u6ee4"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/scan/refresh": {
+      "get": {
+        "summary": "Refresh Scan",
+        "description": "\u5f3a\u5236\u5237\u65b0\u626b\u63cf\n\n\u89e6\u53d1\u4e00\u6b21\u65b0\u7684\u5168\u5e02\u573a\u626b\u63cf\uff08\u8017\u65f6\u7ea6 10-20 \u79d2\uff09\u3002",
+        "operationId": "refresh_scan_scan_refresh_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/coins/{symbol}": {
+      "get": {
+        "summary": "Get Coin",
+        "description": "\u67e5\u8be2\u5355\u4e2a\u5e01\u79cd\u8be6\u60c5",
+        "operationId": "get_coin_coins__symbol__get",
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Symbol"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "https://yaobi-api-deploy.vercel.app",
+      "description": "Production"
+    }
+  ]
+}
